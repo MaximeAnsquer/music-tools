@@ -1,0 +1,86 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIDI Keyboard Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .note {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .notes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #logsTable {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30%;
+        }
+
+        #logsTable td, #logsTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #logsTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #logsTable tr:hover {
+            background-color: #ddd;
+        }
+
+        #logsTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+        }
+
+        button {
+            background-color: #04AA6D; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            &:hover {
+                cursor: pointer;
+                background-color: lightgreen;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Random scale</h1>
+<div id="output" class="note">Waiting for input...</div>
+<h1 id="note">Note</h1>
+<br>
+
+<table id="logsTable">
+    <thead>
+    <th>Name</th>
+    <th>Average time</th>
+    <th>Occurrences</th>
+    <th>Probability</th>
+    </thead>
+    <tbody id="logsTbody"></tbody>
+</table>
+
+<script type="module" src="RandomScales.js"></script>
+
+</body>

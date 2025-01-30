@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Audio Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        #status {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Random Audio Notes</h1>
+<div id="status">Waiting to announce a note...</div>
+
+<script>
+    const notes =   ["Do", "Ré bémol", "Ré", "Mi bémol", "Mi", "Fa", "Sol bémol", "Sol", "La bémol"];
+    const weights = [0.5,   1,          1,    1,          1,    1,    1,           2,     3];
+    let lastNote = null;
+
+    function weightedRandomChoice(weights) {
+        const cumulativeWeights = weights.map((sum => value => sum += value)(0));
+        console.log('cumulativeWeights', cumulativeWeights);
+        const random = Math.random() * cumulativeWeights[cumulativeWeights.length - 1];
+        return cumulativeWeights.findIndex(weight => random < weight);
+    }
+
+    function speak(note) {
+        const utterance = new SpeechSynthesisUtterance(note);
+        utterance.lang = "fr-FR";
+        speechSynthesis.speak(utterance);
+    }
+
+    function announceRandomNote() {
+        let randomIndex;
+        do {
+            randomIndex = weightedRandomChoice(weights);
+        } while (notes[randomIndex] === lastNote);
+
+        lastNote = notes[randomIndex];
+        document.getElementById("status").textContent = `Announcing: ${notes[randomIndex]}`;
+        speak(notes[randomIndex]);
+    }
+    announceRandomNote();
+    setInterval(announceRandomNote, 12 * 1000);
+</script>
+</body>
+</html>

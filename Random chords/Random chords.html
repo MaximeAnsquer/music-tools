@@ -1,0 +1,72 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIDI Keyboard Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .note {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .notes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #logsTable {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30%;
+        }
+
+        #logsTable td, #logsTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #logsTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #logsTable tr:hover {
+            background-color: #ddd;
+        }
+
+        #logsTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>MIDI Keyboard Reader</h1>
+<p>Connect your MIDI keyboard and play some notes!</p>
+<div id="output" class="note">Waiting for input...</div>
+<h1 id="note">Note</h1>
+<div id="notes" class="notes"></div>
+
+<table id="logsTable">
+    <thead>
+    <th>Name</th>
+    <th>Average time</th>
+    <th>Occurrences</th>
+    <th>Probability</th>
+    </thead>
+    <tbody id="logsTbody"></tbody>
+</table>
+
+<script type="module" src="RandomChords.js"></script>
+
+</body>
