@@ -9,8 +9,8 @@ const scales = [
     new ScaleOrChord("Ré bémol", ["C#", "D#", "F", "F#", "G#", "A#", "C"]),
     new ScaleOrChord("Ré", ["D", "E", "F#", "G", "A", "B", "C#"]),
     new ScaleOrChord("Ré dièse", ["D#", "F", "G", "G#", "A#", "C", "D"]),
-    // new ScaleOrChord("Mi", ["E", "F#", "G#", "A", "B", "C#", "D#"]),
-    // new ScaleOrChord("Fa dièse", ["F#", "G#", "A#", "B", "C#", "D#", "F"]),
+    new ScaleOrChord("Mi", ["E", "F#", "G#", "A", "B", "C#", "D#"]),
+    new ScaleOrChord("Fa dièse", ["F#", "G#", "A#", "B", "C#", "D#", "F"]),
     // new ScaleOrChord("Sol bémol", ["F#", "G#", "A#", "B", "C#", "D#", "F"]),
     // new ScaleOrChord("Sol", ["G", "A", "B", "C", "D", "E", "F#"]),
     // new ScaleOrChord("Sol dièse", ["G#", "A#", "C", "C#", "D#", "F", "G"]),
@@ -20,6 +20,7 @@ const scales = [
     // new ScaleOrChord("Si", ["B", "C#", "D#", "E", "F#", "G#", "A#"])
 ];
 const OCTAVES_TO_FIND = 2;
+const MAXIMUM_AVERAGE_TIME = 12;
 let scaleToFind;
 let noteToFindIndex = 0;
 let tonicFoundCount = 0;
@@ -81,7 +82,7 @@ function handleScaleFinished() {
     }
 }
 function isFinished() {
-    return scales.every(s => s.averageTime < 10)
+    return scales.every(s => s.averageTime < MAXIMUM_AVERAGE_TIME)
         && scales.map(s => s.occurrences).reduce((a, b) => a + b, 0) > 40;
 }
 function handleCorrectNoteBackward() {

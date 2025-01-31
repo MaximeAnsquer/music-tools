@@ -1,24 +1,24 @@
 import { ScaleOrChord } from "../ScaleOrChord.js";
 import { getNoteName, getRandomElementWithWeight, listsAreEqual, speak, updateOccurrencesAndAverageTime, updateTable } from "../utils.js";
 const chords = [
-    new ScaleOrChord("Ré mineur 7", ["D", "F", "A", "C"]),
+    new ScaleOrChord("Ré mine 7", ["D", "F", "A", "C"]),
     new ScaleOrChord("Sol 7", ["G", "B", "D", "F"]),
-    new ScaleOrChord("Do majeur 7", ["C", "E", "G", "B"]),
-    new ScaleOrChord("Mi mineur 7", ["E", "G", "B", "D"]),
+    new ScaleOrChord("Do maje 7", ["C", "E", "G", "B"]),
+    new ScaleOrChord("Mi mine 7", ["E", "G", "B", "D"]),
     new ScaleOrChord("La 7", ["A", "C#", "E", "G"]),
-    new ScaleOrChord("Ré majeur 7", ["D", "F#", "A", "C#"]),
-    new ScaleOrChord("Mi mineur 7", ["E", "G", "B", "D"]),
-    new ScaleOrChord("La 7", ["A", "C#", "E", "G"]),
-    new ScaleOrChord("Ré majeur 7", ["D", "F#", "A", "C#"]),
-    new ScaleOrChord("Fa dièse mineur 7", ["F#", "A", "C#", "E"]),
+    new ScaleOrChord("Ré maje 7", ["D", "F#", "A", "C#"]),
+    new ScaleOrChord("Fa dièse mine 7", ["F#", "A", "C#", "E"]),
     new ScaleOrChord("Si 7", ["B", "D#", "F#", "A"]),
-    new ScaleOrChord("Mi majeur 7", ["E", "G#", "B", "D#"]),
-    new ScaleOrChord("Sol mineur 7", ["G", "A#", "D", "F"]),
+    new ScaleOrChord("Mi maje 7", ["E", "G#", "B", "D#"]),
+    new ScaleOrChord("Sol mine 7", ["G", "A#", "D", "F"]),
     new ScaleOrChord("Do 7", ["C", "E", "G", "A#"]),
-    new ScaleOrChord("Fa majeur 7", ["F", "A", "C", "E"]),
-    new ScaleOrChord("La mineur 7", ["A", "C", "E", "G"]),
+    new ScaleOrChord("Fa maje 7", ["F", "A", "C", "E"]),
+    new ScaleOrChord("La mine 7", ["A", "C", "E", "G"]),
     new ScaleOrChord("Ré 7", ["D", "F#", "A", "C"]),
-    // new ScaleOrChord("Sol majeur 7", ["G", "B", "D", "F#"]),
+    new ScaleOrChord("Sol maje 7", ["G", "B", "D", "F#"]),
+    new ScaleOrChord("Si mine 7", ["B", "D", "F#", "A"]),
+    new ScaleOrChord("Mi 7", ["E", "G#", "B", "D"]),
+    new ScaleOrChord("La maje 7", ["A", "C#", "E", "G#"]),
     // new ScaleOrChord("La bémol", ["G#", "C", "G"]),
     // new ScaleOrChord("Ré bémol", ["C#", "F", "C"]),
     // new ScaleOrChord("Sol bémol", ["F#", "A#", "F"]),
@@ -32,6 +32,7 @@ const activeNotes = new Map();
 let chordToFind;
 let startTime;
 const MINIMUM_OCCURRENCES_TO_FINISH = 100;
+const GOAL_TIME_IN_S = 3.5;
 function askChord() {
     chordToFind = getRandomElementWithWeight(chords.filter(c => c !== chordToFind));
     document.getElementById("note").innerText = chordToFind.name;
@@ -87,7 +88,7 @@ function handleNoteOff(note) {
     }
 }
 function isFinished() {
-    return chords.every(chord => chord.averageTime < 3)
+    return chords.every(chord => chord.averageTime < GOAL_TIME_IN_S)
         && chords.map(c => c.occurrences).reduce((a, b) => a + b, 0) > MINIMUM_OCCURRENCES_TO_FINISH;
 }
 function handleCorrectScale() {
@@ -99,7 +100,7 @@ function handleCorrectScale() {
     updateOccurrencesAndAverageTime(chordToFind, duration);
     updateTable(chords, chord => chord.averageTime);
     if (isFinished()) {
-        speak("Bravo c'est terminado pour cet exo");
+        speak("Bravo c'est termineado pour cet exo");
         updateTable(chords, chord => chord.occurrences);
     }
     else {
