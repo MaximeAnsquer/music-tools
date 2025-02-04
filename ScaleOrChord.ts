@@ -9,6 +9,6 @@ export class ScaleOrChord implements Weighable {
     }
 
     getWeight(): number {
-        return Math.max(1, Math.pow(this.averageTime, 3.5));
+        return Math.max(1, Math.pow(this.averageTime - 1, 3.5));
     }
 }

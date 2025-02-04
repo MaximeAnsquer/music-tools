@@ -43,6 +43,7 @@ export function speak(text: string) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "fr-FR";
     utterance.volume = 0.6;
+    utterance.rate = 1.5;
     speechSynthesis.cancel();
     speechSynthesis.speak(utterance);
 }

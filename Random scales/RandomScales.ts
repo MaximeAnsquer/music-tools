@@ -12,9 +12,9 @@ const scales = [
     new ScaleOrChord("Ré dièse", ["D#", "F", "G", "G#", "A#", "C", "D"]),
     new ScaleOrChord("Mi", ["E", "F#", "G#", "A", "B", "C#", "D#"]),
     new ScaleOrChord("Fa dièse", ["F#", "G#", "A#", "B", "C#", "D#", "F"]),
-    // new ScaleOrChord("Sol bémol", ["F#", "G#", "A#", "B", "C#", "D#", "F"]),
-    // new ScaleOrChord("Sol", ["G", "A", "B", "C", "D", "E", "F#"]),
-    // new ScaleOrChord("Sol dièse", ["G#", "A#", "C", "C#", "D#", "F", "G"]),
+    new ScaleOrChord("Sol bémol", ["F#", "G#", "A#", "B", "C#", "D#", "F"]),
+    new ScaleOrChord("Sol", ["G", "A", "B", "C", "D", "E", "F#"]),
+    new ScaleOrChord("Sol dièse", ["G#", "A#", "C", "C#", "D#", "F", "G"]),
     // new ScaleOrChord("La bémol", ["G#", "A#", "C", "C#", "D#", "F", "G"]),
     // new ScaleOrChord("La", ["A", "B", "C#", "D", "E", "F#", "G#"]),
     // new ScaleOrChord("La dièse", ["A#", "C", "D", "D#", "F", "G", "A"]),
@@ -23,6 +23,7 @@ const scales = [
 
 const OCTAVES_TO_FIND = 2;
 const MAXIMUM_AVERAGE_TIME = 12;
+const ASK_DELAY_MS = 100;
 
 let scaleToFind: ScaleOrChord;
 let noteToFindIndex = 0;
@@ -81,19 +82,21 @@ function handleScaleFinished() {
     tonicFoundCount = 0;
     let duration = (new Date().getTime() - startTime) / 1000;
     updateOccurrencesAndAverageTime(scaleToFind, duration);
-    updateTable(scales, scaleOrChord => scaleOrChord.averageTime);
+    updateTable(scales, scaleOrChord => scaleOrChord.occurrences);
     if (isFinished()) {
         speak("Bravo c'est terminado pour cet exo");
         updateTable(scales, scale => scale.occurrences);
     } else {
-        setTimeout(askScale, 200);
+        setTimeout(askScale, ASK_DELAY_MS);
     }
 }
 
 function isFinished(): boolean {
-    return scales.every(s => s.averageTime < MAXIMUM_AVERAGE_TIME)
-        && scales.map(s => s.occurrences).reduce((a, b) => a + b, 0) > 40;
+    return false;
 }
+//     return scales.every(s => s.averageTime < MAXIMUM_AVERAGE_TIME)
+//         && scales.map(s => s.occurrences).reduce((a, b) => a + b, 0) > 40;
+// }
 
 function handleCorrectNoteBackward() {
     if (tonicFoundCount === OCTAVES_TO_FIND + 3) {

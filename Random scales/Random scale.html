@@ -69,7 +69,15 @@
 <h1>Random scale</h1>
 <div id="output" class="note">Waiting for input...</div>
 <h1 id="note">Note</h1>
+<button onclick="onRead()">Talk To Me</button>
 <br>
+
+<script>
+    const onRead = () => {
+        const utter = new window.SpeechSynthesisUtterance("red");
+        window.speechSynthesis.speak(utter);
+    };
+</script>
 
 <table id="logsTable">
     <thead>

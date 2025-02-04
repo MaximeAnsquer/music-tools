@@ -6,6 +6,6 @@ export class ScaleOrChord {
         this.occurrences = 0;
     }
     getWeight() {
-        return Math.max(1, Math.pow(this.averageTime, 3.5));
+        return Math.max(1, Math.pow(this.averageTime - 1, 3.5));
     }
 }
